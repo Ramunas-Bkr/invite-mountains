@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NoteController;
 
 
 /*
@@ -15,14 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
-// Route::middleware(['auth'])->group(function() {
-//     Route::get('/register', function() {
-//         return view ('auth.register');
-//     });
-// });
+Route::middleware(['auth'])->group(function() {
+    Route::get('/register', function() {return view ('auth.register');});
+    Route::resource('notes', NoteController::class);
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
